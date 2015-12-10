@@ -1,5 +1,14 @@
 import math
 import numpy as np
+
+def memoize(func):
+    results = {}
+    def helper(*args):
+        if args not in results:
+            results[args] = func(*args)
+        return results[args]
+    return helper
+
 def divsum(n):
     sum = 1
     sqrtn = math.sqrt(n)
@@ -69,7 +78,7 @@ def factors(a):
     return f
 
 
-def kuerzen(a,b):    
+def kuerzen(a,b):
     af = factors(a)
     bf = factors(b)
     gem = af.intersection(bf)
@@ -91,13 +100,13 @@ def gcd(a, b):
 def bgcd(u, v):
     if (u == v):
         return u
- 
+
     if (u == 0):
         return v
- 
+
     if (v == 0):
         return u
- 
+
     # look for factors of 2
     if not (u & 1): # u is even
         if (v & 1): # v is odd
@@ -107,25 +116,25 @@ def bgcd(u, v):
 
     if not (v & 1): # u is odd, v is even
         return gcd(u, v >> 1)
- 
+
     # reduce larger argument
     if (u > v):
         return gcd((u - v) >> 1, v)
-    
+
     return gcd((v - u) >> 1, u)
 
 
 def redfrac(a, b):
     d = gcd(a, b)
     while d > 1:
-        a = a // d            
+        a = a // d
         b = b // d
         d = gcd(a, b)
     return a, b
 
 def mediant(n1,d1,n2,d2):
     return redfrac(n1+n2, d1+d2)
-        
+
 
 def setprimes(p):
     global primes
