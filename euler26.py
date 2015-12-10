@@ -1,19 +1,28 @@
 #!/usr/bin/python
 
-fp = open("names.txt", "r")
+m  = 0
+mi = 0
+mv = []
+for i in range(2,1000):
+    rest = 1.
+    d = [1.]
+    rv= []
+    j = 0
+    cycle = 0
+    while rest > 0:
+        rest *= 10
+        div = rest // i
+        rest -= div * i
+        if rest in rv:
+            cycle = j - rv.index(rest)
+            break
+        rv.append(rest)
+        d.append(div)
+        j += 1
+    mv.append(cycle)
 
-file = fp.read()
-names = sorted(file.split(','))
 
-totsum = 0
+m = max(mv)
+i = mv.index(m)
 
-for i in range(len(names)):
-#for i in range(10):
-    names[i] = names[i].strip('"')
-    sum = 0
-    for j in range( len(names[i]) ):
-        sum += ord (names[i][j]) - 64
-    totsum += sum * (i+1)
-#    print i, names[i], sum
-
-print totsum
+print i+2, m
