@@ -1,14 +1,15 @@
 import numpy as np
 
 LIMIT = 1000000
-results = np.zeros(LIMIT, dtype=np.int32)
-results[1] = 1
+#results = np.zeros(LIMIT, dtype=np.int32)
+#results[1] = 1
 def memoize(func):
-    #results = {}
+    results = {}
     def helper(arg):
         if arg < 0:
              return 0
-        if results[arg] == 0:
+        #if results[arg] == 0:
+        if arg not in results:
             results[arg] = func(arg)
         return results[arg]
     return helper
@@ -24,7 +25,7 @@ def P(n):
     sign = 1
     k = 1
     res = 0
-    while True:        
+    while True:
         pent = (3*k**2 - k) // 2
         if pent > n:
             break
